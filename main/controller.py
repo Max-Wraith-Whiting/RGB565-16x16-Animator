@@ -8,21 +8,27 @@ import model
 from grid_canvas import grid_canvas
 from rgb_scales import rgb_scales
 from toolbar import toolbar
+from menu import menu
 
 class controller(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
         
+        self.winfo_toplevel().title("RGB-565 Animator")
+        self.parent.resizable(width=0, height=0)
+        
         self.model = model.rgb_animator_model(self)
         
         self.grid_canvas = grid_canvas(self)
         self.rgb_scales = rgb_scales(self)
         self.toolbar = toolbar(self)
+        self.menu = menu(self)
         
         self.grid_canvas.generate()
         self.rgb_scales.generate()
         self.toolbar.generate()
+        self.menu.generate()
         
         self.grid_canvas.grid(row=0, column=0, columnspan=5, rowspan=5, sticky='nesw')
         self.rgb_scales.grid(row=0, column=6, sticky='nesw')
@@ -83,6 +89,12 @@ class controller(tk.Frame):
 
     def update_colour_viewer(self, colour):
         self.rgb_scales.update_colour_viewer(colour)
+     
+    def save_frame_stack(self):
+        self.model.save_frame_stack()
+        
+    def disable_grid(self):
+        self.grid_canvas.disable_grid()
         
 def main():
     root = tk.Tk()

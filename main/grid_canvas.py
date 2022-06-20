@@ -7,6 +7,7 @@ class grid_canvas(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
+        self.isDisabled = False
         
         self.cell_buttons = []
         
@@ -83,7 +84,17 @@ class grid_canvas(tk.Frame):
         self.create_buttons()
         self.create_label()
         
-        
+    def disable_grid(self):
+        self.isDisabled = not self.isDisabled
+        if self.isDisabled:
+            for row in self.cell_buttons:
+                for button in row:
+                    button.configure(relief=tk.constants.FLAT)
+        else:
+            for row in self.cell_buttons:
+                for button in row:
+                    button.configure(relief=tk.constants.RAISED)
+                    
 def main():
     root = tk.Tk()
     x = grid_canvas(root)

@@ -17,3 +17,8 @@ def rgb_to_hex565(r, g, b):
         rgb565 = "0" + rgb565
 
     return('0x' + rgb565)
+
+def hex888_to_rgb(colour):
+    """Takes hex888, returns RGB888."""
+    hex = colour[1:]
+    return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))

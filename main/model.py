@@ -1,5 +1,7 @@
 import math
 import numpy as np
+from helpers import rgb_to_hex565, hex888_to_rgb
+from tkinter import filedialog as fd
 
 class rgb_animator_model():
     def __init__(self, parent):
@@ -81,20 +83,7 @@ class rgb_animator_model():
             self.clear_current_frame()
         
     def toggle_eraser(self):
-        """# Eraser button.
-        def eraser():
-            self.isErase = not self.isErase
-            
-            if self.isErase:
-                # Store current colours and set to white.
-                self.holding_colour = self.colour
-                self.colour = '#ffffff'
-                
-            else:
-                # Retrieve held colours.
-                self.colour = self.holding_colour
-                self.button_eraser.configure(bg='white', relief=RAISED)
-        """
+        """Toggles the eraser on or off."""
         self.isErase = not self.isErase
         
         if self.isErase:
@@ -110,4 +99,21 @@ class rgb_animator_model():
     
     def set_colour(self, colour):
         self.colour = colour
+    
+    def save_frame_stack(self):
+        f = fd.asksaveasfile(mode='w', defaultextension=".txt", filetypes=(("Text file", "*.txt"),("All Files", "*.*") ))
+        if f is None:
+            return
         
+        new_stack = []
+        for frame in self.frame_stack:
+            new_frame = []
+            for row in frame:
+                new_row = []
+                for val in row:
+                    r,g,b = hex888_to_rgb(val)
+                    new_row.append(rgb_to_hex565(r, g, b))
+                new_frame.append(new_row)
+            new_stack.append(np.array(new_frame))
+        f.write(str(new_stack))
+        f.close()
