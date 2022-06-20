@@ -94,13 +94,3 @@ class grid_canvas(tk.Frame):
             for row in self.cell_buttons:
                 for button in row:
                     button.configure(relief=tk.constants.RAISED)
-                    
-def main():
-    root = tk.Tk()
-    x = grid_canvas(root)
-    x.generate()
-    x.pack(side="top", fill="both", expand=True)
-    root.mainloop()
-
-if __name__ == '__main__':
-    main() 

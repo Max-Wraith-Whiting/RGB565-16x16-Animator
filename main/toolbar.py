@@ -37,15 +37,3 @@ class toolbar(tk.Frame):
     def generate(self):
         self.create_frames()
         self.create_buttons()
-        #self.create_label()
-        
-        
-def main():
-    root = tk.Tk()
-    x = grid_canvas(root)
-    x.generate()
-    x.pack(side="top", fill="both", expand=True)
-    root.mainloop()
-
-if __name__ == '__main__':
-    main() 

@@ -74,14 +74,3 @@ class rgb_scales(tk.Frame):
     def generate(self):
         self.create_frames()
         self.create_rgb_scales()
-        
-def main():
-    root = tk.Tk()
-    x = rgb_scales(root)
-    x.generate()
-    x.pack(side="top", fill="both", expand=True)
-    root.mainloop()
-
-if __name__ == '__main__':
-    main() 
-        
