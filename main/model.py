@@ -105,6 +105,33 @@ class rgb_animator_model():
         if f is None:
             return
         
+        total = ''
+        for frame in self.frame_stack:
+            new_frame = ''
+            for i, row in enumerate(frame):
+                new_row = ''
+                for val in row:
+                    r,g,b = hex888_to_rgb(val)
+                    new_val = rgb_to_hex565(r,g,b)
+                    new_row += str(new_val)
+                    new_row += ', '
+                if i == 15:
+                    l = len(new_row)
+                    new_frame += new_row[:l - 2]
+                    new_row += '\n'
+                else:
+                    new_frame += new_row
+                    new_row += '\n'
+            total += new_frame
+            total += '\n' * 2
+            
+        f.write(total)
+        f.close()
+        
+        """f = fd.asksaveasfile(mode='w', defaultextension=".txt", filetypes=(("Text file", "*.txt"),("All Files", "*.*") ))
+        if f is None:
+            return
+        
         new_stack = []
         for frame in self.frame_stack:
             new_frame = []
@@ -116,4 +143,4 @@ class rgb_animator_model():
                 new_frame.append(new_row)
             new_stack.append(np.array(new_frame))
         f.write(str(new_stack))
-        f.close()
+        f.close()"""
